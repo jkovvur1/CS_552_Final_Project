@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        body {
+            /* background-color: black; */
+            text-align: center;
+            color: white;
+        }
+        .media {
+            display: inline-block;
+            margin: 50px;
+        }
+    </style>
+
+    {% for file in files %}
+        <div class="media">
+            {% if file.content_type.startswith('video') %}
+            <a href="/play/{{ file.name }}"><img src="../static/images/video.png" width="200" height="150"></a><br>
+            {{ file.name }}
+            {% elif file.content_type.startswith('audio') %}
+            <a href="/play/{{ file.name }}"><img src="../static/images/music.png" width="200" height="150"></a><br>
+            {{ file.name }}
+            {% else %}
+            <a href="/play/{{ file.name }}"><img src="{{ file.url }}" width="200" height="150"></a><br>
+            {{ file.name }}
+            {% endif %}
+            <!-- {{ file.name }} -->
+            <!-- <a href="/play/{{ file.name }}"><img src="{{ file.url }}" width="200" height="150"></a><br>
+            {{ file.name }} -->
+        </div>
+    {% endfor %}
+{% endblock %}

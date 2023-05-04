@@ -1,0 +1,2 @@
+pymongo==4.3.3
+google-cloud-storage==2.8.0

@@ -1,0 +1,5 @@
+__pycache__/*
+Dockerfile
+keys.json
+venv/*
+Makefile

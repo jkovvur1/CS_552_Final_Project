@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        body {
+            /* background-color: black; */
+            text-align: center;
+            color: white;
+        }
+    </style>
+
+    {% if metadata.content_type.startswith('video') %}
+    <div align="center">
+        <video controls width="640" height="480" controlsList="nodownload" autoplay>
+            <source src="{{ metadata.url }}" type="{{ metadata.content_type }}">
+        </video>
+    </div>
+    {% elif metadata.content_type.startswith('audio') %}
+    <div align="center" style="margin: 0 auto; display: table;">
+        <audio controls controlsList="nodownload" autoplay>
+            <source src="{{ metadata.url }}" type="{{ metadata.content_type }}">
+        </audio>
+    </div>
+    {% elif metadata.content_type.startswith('image') %}
+        <img src="{{ metadata.url }}" width="100%" height="100%">
+    {% endif %}
+{% endblock %}

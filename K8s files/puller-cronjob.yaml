@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: puller
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: puller
+            image: jitendra5126/puller-job:latest
+            imagePullPolicy: Always
+            command: ["python3", "run.py"]
+            env:
+               - name: GOOGLE_APPLICATION_CREDENTIALS
+                 value: /app/gcp-creds/keys.json
+               - name: BUCKET
+                 value: media-9162
+               - name: MONGO_URL
+                 value: mongodb://mongo:27017
+            volumeMounts:
+                - name: gcp-creds
+                  mountPath: /app/gcp-creds
+                  readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+            - name: gcp-creds
+              secret:
+                secretName: gcp-creds
